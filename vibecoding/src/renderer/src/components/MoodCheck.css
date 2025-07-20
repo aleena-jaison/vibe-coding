@@ -1,0 +1,210 @@
+.mood-check-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: overlay-appear 0.3s ease-out;
+  backdrop-filter: blur(5px);
+}
+
+.mood-check-panel {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  padding: 22px 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(255, 213, 79, 0.3);
+  width: 320px;
+  text-align: center;
+  position: relative;
+  animation: panel-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mood-check-panel h3 {
+  margin: 0 0 18px 0;
+  color: #333;
+  font-size: 17px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff9800, #ffd54f);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.mood-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 0;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+}
+
+.mood-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  border: 2px solid rgba(224, 224, 224, 0.5);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 65px;
+  width: 130px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mood-emoji {
+  font-size: 24px;
+  margin-bottom: 4px;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.mood-label {
+  font-size: 11px;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.mood-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 213, 79, 0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.mood-option:hover {
+  border-color: #ffd54f;
+  background: rgba(255, 213, 79, 0.2);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(255, 213, 79, 0.3);
+}
+
+.mood-option:hover::before {
+  left: 100%;
+}
+
+.mood-option.selected {
+  border-color: #ffd54f;
+  background: linear-gradient(135deg, rgba(255, 213, 79, 0.3), rgba(255, 152, 0, 0.2));
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 213, 79, 0.4);
+  animation: mood-selected 0.5s ease;
+}
+
+.mood-emoji {
+  font-size: 28px;
+  margin-bottom: 6px;
+  transition: transform 0.3s ease;
+}
+
+.mood-option:hover .mood-emoji {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.mood-option.selected .mood-emoji {
+  animation: emoji-bounce 0.6s ease;
+}
+
+.mood-confirmation {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(129, 199, 132, 0.1));
+  border: 2px solid rgba(76, 175, 80, 0.3);
+  border-radius: 15px;
+  padding: 15px;
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 600;
+  animation: confirmation-appear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.close-button:hover {
+  color: #666;
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes overlay-appear {
+  0% { opacity: 0; backdrop-filter: blur(0px); }
+  100% { opacity: 1; backdrop-filter: blur(5px); }
+}
+
+@keyframes panel-appear {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.8) translateY(-20px); 
+    filter: blur(5px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+    filter: blur(0px);
+  }
+}
+
+@keyframes mood-selected {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1) rotate(2deg); }
+  100% { transform: scale(1.05); }
+}
+
+@keyframes emoji-bounce {
+  0%, 100% { transform: scale(1.2) rotate(5deg); }
+  25% { transform: scale(1.4) rotate(-3deg); }
+  50% { transform: scale(1.3) rotate(7deg); }
+  75% { transform: scale(1.35) rotate(-2deg); }
+}
+
+@keyframes confirmation-appear {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.9) translateY(10px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1) translateY(0); 
+  }
+}
